@@ -56,31 +56,32 @@ void table_to_chartable(int **table, char * chartable[3][3][5]){
 }
 
 void print_only(char * chartable[3][3][5]){
-	printf("#########################\n");
-	printf("#       #       #       #\n");
-	printf("# %s # %s # %s #\n", chartable[0][0][0], chartable[1][0][0], chartable[2][0][0]);
-	printf("# %s # %s # %s #\n", chartable[0][0][1], chartable[1][0][1], chartable[2][0][1]);
-	printf("# %s # %s # %s #\n", chartable[0][0][2], chartable[1][0][2], chartable[2][0][2]);
-	printf("# %s # %s # %s #\n", chartable[0][0][3], chartable[1][0][3], chartable[2][0][3]);
-	printf("# %s # %s # %s #\n", chartable[0][0][4], chartable[1][0][4], chartable[2][0][4]);
-	printf("#       #       #       #\n");
-	printf("#########################\n");
-	printf("#       #       #       #\n");
-	printf("# %s # %s # %s #\n", chartable[0][1][0], chartable[1][1][0], chartable[2][1][0]);
-	printf("# %s # %s # %s #\n", chartable[0][1][1], chartable[1][1][1], chartable[2][1][1]);
-	printf("# %s # %s # %s #\n", chartable[0][1][2], chartable[1][1][2], chartable[2][1][2]);
-	printf("# %s # %s # %s #\n", chartable[0][1][3], chartable[1][1][3], chartable[2][1][3]);
-	printf("# %s # %s # %s #\n", chartable[0][1][4], chartable[1][1][4], chartable[2][1][4]);
-	printf("#       #       #       #\n");
-	printf("#########################\n");
-	printf("#       #       #       #\n");
-	printf("# %s # %s # %s #\n", chartable[0][2][0], chartable[1][2][0], chartable[2][2][0]);
-	printf("# %s # %s # %s #\n", chartable[0][2][1], chartable[1][2][1], chartable[2][2][1]);
-	printf("# %s # %s # %s #\n", chartable[0][2][2], chartable[1][2][2], chartable[2][2][2]);
-	printf("# %s # %s # %s #\n", chartable[0][2][3], chartable[1][2][3], chartable[2][2][3]);
-	printf("# %s # %s # %s #\n", chartable[0][2][4], chartable[1][2][4], chartable[2][2][4]);
-	printf("#       #       #       #\n");
-	printf("#########################\n");
+    printf("  #   a   #   b   #   c   #\n");
+	printf("###########################\n");
+	printf("  #       #       #       #\n");
+	printf("  # %s # %s # %s #\n", chartable[0][0][0], chartable[1][0][0], chartable[2][0][0]);
+	printf("  # %s # %s # %s #\n", chartable[0][0][1], chartable[1][0][1], chartable[2][0][1]);
+	printf("a # %s # %s # %s #\n", chartable[0][0][2], chartable[1][0][2], chartable[2][0][2]);
+	printf("  # %s # %s # %s #\n", chartable[0][0][3], chartable[1][0][3], chartable[2][0][3]);
+	printf("  # %s # %s # %s #\n", chartable[0][0][4], chartable[1][0][4], chartable[2][0][4]);
+	printf("  #       #       #       #\n");
+	printf("###########################\n");
+	printf("  #       #       #       #\n");
+	printf("  # %s # %s # %s #\n", chartable[0][1][0], chartable[1][1][0], chartable[2][1][0]);
+	printf("  # %s # %s # %s #\n", chartable[0][1][1], chartable[1][1][1], chartable[2][1][1]);
+	printf("b # %s # %s # %s #\n", chartable[0][1][2], chartable[1][1][2], chartable[2][1][2]);
+	printf("  # %s # %s # %s #\n", chartable[0][1][3], chartable[1][1][3], chartable[2][1][3]);
+	printf("  # %s # %s # %s #\n", chartable[0][1][4], chartable[1][1][4], chartable[2][1][4]);
+	printf("  #       #       #       #\n");
+	printf("###########################\n");
+	printf("  #       #       #       #\n");
+	printf("  # %s # %s # %s #\n", chartable[0][2][0], chartable[1][2][0], chartable[2][2][0]);
+	printf("  # %s # %s # %s #\n", chartable[0][2][1], chartable[1][2][1], chartable[2][2][1]);
+	printf("c # %s # %s # %s #\n", chartable[0][2][2], chartable[1][2][2], chartable[2][2][2]);
+	printf("  # %s # %s # %s #\n", chartable[0][2][3], chartable[1][2][3], chartable[2][2][3]);
+	printf("  # %s # %s # %s #\n", chartable[0][2][4], chartable[1][2][4], chartable[2][2][4]);
+	printf("  #       #       #       #\n");
+	printf("###########################\n");
 	return;
 }
 
