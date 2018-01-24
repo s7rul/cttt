@@ -3,20 +3,20 @@
 #include <stdio.h>
 
 //functions in logic.c
-void clean_table(int **table);
-int test_win(int **table, int turn);
-void inputfunc(int **table, int turn);
+void clean_table(int *table);
+int test_win(int *table, int turn);
+void inputfunc(int *table, int turn, int *xs, int *os);
 
 //functions in table.c
-void print_table(int **table);
+void print_table(int *table);
 void print_turn(int turn);
 
 
 int two_player_loop(){
-	int **table = (int **) malloc(3 * sizeof(int));
-	table[0] = (int *) malloc(3 * sizeof(int));
-	table[1] = (int *) malloc(3 * sizeof(int));
-	table[2] = (int *) malloc(3 * sizeof(int));
+
+	int *table = (int *) malloc(9 * sizeof(int));
+	int *xs = (int *) malloc(sizeof(int));
+	int *os = (int *) malloc(sizeof(int));
 
 	int win;
 	int turn;
@@ -24,13 +24,16 @@ int two_player_loop(){
 	clean_table(table);
 	turn = 1;
 	win = 0;
+	*xs = 0;
+	*os = 0;
 
 
 	while(win == 0){
 		print_turn(turn);
 		printf("interger turn:%d\n", turn);
+		printf("#x: %d #o: %d\n", *xs, *os);
 		print_table(table);
-		inputfunc(table, turn);
+		inputfunc(table, turn, xs, os);
 		win = test_win(table, turn);
 
 		if (turn == 1){turn = 2;}
@@ -38,10 +41,9 @@ int two_player_loop(){
 	}
 
 
-	free(table[0]);
-	free(table[1]);
-	free(table[2]);
 	free(table);
+	free(xs);
+	free(os);
 }
 
 int one_player_loop(){
@@ -83,4 +85,5 @@ int menu(){
 int main(){
 	printf("Hello and wealcome to tic tac toe writhen in c.\n");
 	menu();
+	return 0;
 }

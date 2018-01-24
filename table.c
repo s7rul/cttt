@@ -1,25 +1,21 @@
 //this is the visual table part of the game
 #include <stdio.h>
 
-void clear_chartable(char * chartable[3][3][5]){
+void clear_chartable(char * chartable[9][5]){
 
 	int x;
-	int y;
 	int z;
 
-	for (int x = 0; x < 3; x++){
-		for (int y = 0; y < 3; y++){
-			for (int z = 0; z < 5; z++){
-				chartable[x][y][z] = "     ";
-			}
+	for (int x = 0; x < 9; x++){
+		for (int z = 0; z < 5; z++){
+			chartable[x][z] = "     ";
 		}
 	}
 	return;
 }
 
-void table_to_chartable(int **table, char * chartable[3][3][5]){
+void table_to_chartable(int *table, char * chartable[9][5]){
 	int x;
-	int y;
 	int z;
 	int n;
 
@@ -38,55 +34,53 @@ void table_to_chartable(int **table, char * chartable[3][3][5]){
 	co[3] = "O   O";
 	co[4] = " OOO ";
 
-	for (x = 0; x < 3; x++){
-		for (y = 0; y < 3; y++){
-			if (table[x][y] == 1){
-				for (n = 0; n < 5; n++){
-					chartable[x][y][n] = cx[n];
-				}
+	for (x = 0; x < 9; x++){
+		if (table[x] == 1){
+			for (n = 0; n < 5; n++){
+				chartable[x][n] = cx[n];
 			}
-			if (table[x][y] == 2){
-				for (n = 0; n < 5; n++){
-					chartable[x][y][n] = co[n];
-				}
+		}
+		if (table[x] == 2){
+			for (n = 0; n < 5; n++){
+				chartable[x][n] = co[n];
 			}
 		}
 	}
 	return;
 }
 
-void print_only(char * chartable[3][3][5]){
+void print_only(char * chartable[9][5]){
     printf("  #   a   #   b   #   c   #\n");
 	printf("###########################\n");
 	printf("  #       #       #       #\n");
-	printf("  # %s # %s # %s #\n", chartable[0][0][0], chartable[1][0][0], chartable[2][0][0]);
-	printf("  # %s # %s # %s #\n", chartable[0][0][1], chartable[1][0][1], chartable[2][0][1]);
-	printf("a # %s # %s # %s #\n", chartable[0][0][2], chartable[1][0][2], chartable[2][0][2]);
-	printf("  # %s # %s # %s #\n", chartable[0][0][3], chartable[1][0][3], chartable[2][0][3]);
-	printf("  # %s # %s # %s #\n", chartable[0][0][4], chartable[1][0][4], chartable[2][0][4]);
+	printf("  # %s # %s # %s #\n", chartable[0][0], chartable[1][0], chartable[2][0]);
+	printf("  # %s # %s # %s #\n", chartable[0][1], chartable[1][1], chartable[2][1]);
+	printf("a # %s # %s # %s #\n", chartable[0][2], chartable[1][2], chartable[2][2]);
+	printf("  # %s # %s # %s #\n", chartable[0][3], chartable[1][3], chartable[2][3]);
+	printf("  # %s # %s # %s #\n", chartable[0][4], chartable[1][4], chartable[2][4]);
 	printf("  #       #       #       #\n");
 	printf("###########################\n");
 	printf("  #       #       #       #\n");
-	printf("  # %s # %s # %s #\n", chartable[0][1][0], chartable[1][1][0], chartable[2][1][0]);
-	printf("  # %s # %s # %s #\n", chartable[0][1][1], chartable[1][1][1], chartable[2][1][1]);
-	printf("b # %s # %s # %s #\n", chartable[0][1][2], chartable[1][1][2], chartable[2][1][2]);
-	printf("  # %s # %s # %s #\n", chartable[0][1][3], chartable[1][1][3], chartable[2][1][3]);
-	printf("  # %s # %s # %s #\n", chartable[0][1][4], chartable[1][1][4], chartable[2][1][4]);
+	printf("  # %s # %s # %s #\n", chartable[3][0], chartable[4][0], chartable[5][0]);
+	printf("  # %s # %s # %s #\n", chartable[3][1], chartable[4][1], chartable[5][1]);
+	printf("b # %s # %s # %s #\n", chartable[3][2], chartable[4][2], chartable[5][2]);
+	printf("  # %s # %s # %s #\n", chartable[3][3], chartable[4][3], chartable[5][3]);
+	printf("  # %s # %s # %s #\n", chartable[3][4], chartable[4][4], chartable[5][4]);
 	printf("  #       #       #       #\n");
 	printf("###########################\n");
 	printf("  #       #       #       #\n");
-	printf("  # %s # %s # %s #\n", chartable[0][2][0], chartable[1][2][0], chartable[2][2][0]);
-	printf("  # %s # %s # %s #\n", chartable[0][2][1], chartable[1][2][1], chartable[2][2][1]);
-	printf("c # %s # %s # %s #\n", chartable[0][2][2], chartable[1][2][2], chartable[2][2][2]);
-	printf("  # %s # %s # %s #\n", chartable[0][2][3], chartable[1][2][3], chartable[2][2][3]);
-	printf("  # %s # %s # %s #\n", chartable[0][2][4], chartable[1][2][4], chartable[2][2][4]);
+	printf("  # %s # %s # %s #\n", chartable[6][0], chartable[7][0], chartable[8][0]);
+	printf("  # %s # %s # %s #\n", chartable[6][1], chartable[7][1], chartable[8][1]);
+	printf("c # %s # %s # %s #\n", chartable[6][2], chartable[7][2], chartable[8][2]);
+	printf("  # %s # %s # %s #\n", chartable[6][3], chartable[7][3], chartable[8][3]);
+	printf("  # %s # %s # %s #\n", chartable[6][4], chartable[7][4], chartable[8][4]);
 	printf("  #       #       #       #\n");
 	printf("###########################\n");
 	return;
 }
 
-void print_table(int **table){
-	char * chartable[3][3][5];
+void print_table(int *table){
+	char * chartable[9][5];
 	clear_chartable(chartable);
 	table_to_chartable(table, chartable);
 	print_only(chartable);
