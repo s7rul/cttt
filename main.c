@@ -36,6 +36,8 @@ int two_player_loop(){
 		inputfunc(table, turn, xs, os);
 		win = test_win(table, turn);
 
+		if (win == 1){print_table(table);}
+
 		if (turn == 1){turn = 2;}
 		else if (turn == 2){turn = 1;}
 	}
