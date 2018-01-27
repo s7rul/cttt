@@ -11,6 +11,19 @@ void inputfunc(int *table, int turn, int *xs, int *os);
 void print_table(int *table);
 void print_turn(int turn);
 
+void win_message(int turn){
+	char winner;
+
+	if (turn == 1){winner = 'x';}
+	if (turn == 2){winner = 'o';}
+
+	printf("#######################\n");
+	printf("#                     #\n");
+	printf("#       %c Won!        #\n", winner);
+	printf("#                     #\n");
+	printf("#######################\n");
+}
+
 
 int two_player_loop(){
 
@@ -37,6 +50,7 @@ int two_player_loop(){
 		win = test_win(table, turn);
 
 		if (win == 1){print_table(table);}
+		if (win == 1){win_message(turn);}
 
 		if (turn == 1){turn = 2;}
 		else if (turn == 2){turn = 1;}
