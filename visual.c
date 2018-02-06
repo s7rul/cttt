@@ -1,5 +1,52 @@
 //this is the visual table part of the game
 #include <stdio.h>
+#include <stdlib.h>
+
+//funktions in main.c
+int one_player_loop();
+int two_player_loop();
+
+void win_message(int turn){
+	char winner;
+
+	if (turn == 1){winner = 'x';}
+	if (turn == 2){winner = 'o';}
+
+	printf("#######################\n");
+	printf("#                     #\n");
+	printf("#       %c Won!        #\n", winner);
+	printf("#                     #\n");
+	printf("#######################\n");
+}
+
+int menu(){
+	int * shoice = (int *) malloc(sizeof(int));
+    
+	printf("###################\n");
+	printf("# 1 - two player  #\n");
+	printf("# 2 - one player  #\n");
+	printf("# 3 - quit        #\n");
+	printf("###################\n");
+	printf("Your shoice: ");
+	scanf("%d", shoice);
+
+	switch(*shoice){
+		case 1:
+			free(shoice);
+			two_player_loop();
+			break;
+		case 2:
+			free(shoice);
+			one_player_loop();
+			break;
+		case 3:
+			free(shoice);
+			return 0;
+			break;
+	}
+
+	menu();
+}
 
 void clear_chartable(char * chartable[9][5]){
 
