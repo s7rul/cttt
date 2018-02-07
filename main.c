@@ -53,6 +53,7 @@ int two_player_loop(){
 
 int one_player_loop(){
 	move(0, 0);
+	clear();
 	printw("###################\n");
 	printw("#      Under      #\n");
 	printw("#  construction!  #\n");

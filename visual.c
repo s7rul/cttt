@@ -22,39 +22,82 @@ void win_message(int turn){
 	refresh();
 }
 
-int menu(){
-	int * shoice = (int *) malloc(sizeof(int));
-	int end = 0;
-    
-	while(end != 1){
+int vmenu(){
+	int input;
+	int hlight = 0;
+	char *smenu[3];
+	smenu[0] = "# 1 - two player  #\n";
+	smenu[1] = "# 2 - one player  #\n";
+	smenu[2] = "# 3 - quit        #\n";
+
+
+	while(1){
+		cbreak();
+		noecho();
+		keypad(stdscr, TRUE);
 		clear();
 		move(0, 0);
 		printw("###################\n");
-		printw("# 1 - two player  #\n");
-		printw("# 2 - one player  #\n");
-		printw("# 3 - quit        #\n");
-		printw("###################\n");
-		printw("Your shoice: ");
-		refresh();
-		scanw("%d", shoice);
 
-		switch(*shoice){
+		for (int l = 0; l < 3; l++){
+			if (hlight == l){
+				attron(A_STANDOUT);
+				printw("%s", smenu[l]);
+				attroff(A_STANDOUT);
+			}
+			else printw("%s", smenu[l]);
+		}
+
+		move(4, 0);
+		printw("###################\n");
+		refresh();
+
+		input = getch();
+
+		switch(input){
+			case KEY_UP:
+				if (hlight == 0){
+					break;
+				}
+				else hlight--;
+				break;
+			case KEY_DOWN:
+				if (hlight == 2){
+					break;
+				}
+				else hlight++;
+				break;
+			case 10:
+				keypad(stdscr, FALSE);
+				echo();
+				nocbreak();
+				return hlight + 1;
+				break;
+		}
+
+	}
+}
+
+int menu(){
+
+	int shoice;
+
+	int end = 0;
+    
+	while(end != 1){
+		shoice = vmenu();
+		switch(shoice){
 			case 1:
-				free(shoice);
 				two_player_loop();
 				break;
 			case 2:
-				free(shoice);
 				one_player_loop();
 				break;
 			case 3:
-				free(shoice);
 				return 0;
 				break;
 		}
 	}
-
-	menu();
 }
 
 void clear_chartable(char * chartable[9][5]){
