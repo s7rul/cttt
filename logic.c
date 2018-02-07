@@ -1,6 +1,7 @@
 //all the logical parts of the game
 #include <stdlib.h>
 #include <stdio.h>
+#include <ncurses.h>
 
 void clean_table(int *table){
 	int n;
@@ -31,10 +32,12 @@ void place(int *table, int turn, int *xs, int *os){
 	int input;
 
 	while(1 == 1){
-		printf("Place marker on: ");
-		scanf("%i", &input);
+		printw("Place marker on: ");
+		refresh();
+		scanw("%i", &input);
 
-		printf("input: %d\n", input);
+		printw("input: %d\n", input);
+		refresh();
 
 		if (table[input - 1] == 0){
 			table[input - 1] = turn;
@@ -50,10 +53,12 @@ void take(int *table, int turn, int *xs, int *os){
 	int input;
 
 	while(1 == 1){
-		printf("take marker from: ");
-		scanf("%i", &input);
+		printw("take marker from: ");
+		refresh();
+		scanw("%i", &input);
 
-		printf("input: %d\n", input);
+		printw("input: %d\n", input);
+		refresh();
 
 		if (table[input - 1] == turn){
 			table[input - 1] = 0;
@@ -68,7 +73,7 @@ void take(int *table, int turn, int *xs, int *os){
 
 void inputfunc(int *table, int turn, int *xs, int *os){
 
-	printf("#x: %d #o: %d\n", *xs, *os);
+	printw("#x: %d #o: %d\n", *xs, *os);
 
 	switch(turn){
 		case(1):

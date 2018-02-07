@@ -1,28 +1,18 @@
 //main file
 #include <stdlib.h>
 #include <stdio.h>
+#include <ncurses.h>
 
 //functions in logic.c
 void clean_table(int *table);
 int test_win(int *table, int turn);
 void inputfunc(int *table, int turn, int *xs, int *os);
 
-//functions in table.c
+//functions in visual.c
 void print_table(int *table);
 void print_turn(int turn);
-
-void win_message(int turn){
-	char winner;
-
-	if (turn == 1){winner = 'x';}
-	if (turn == 2){winner = 'o';}
-
-	printf("#######################\n");
-	printf("#                     #\n");
-	printf("#       %c Won!        #\n", winner);
-	printf("#                     #\n");
-	printf("#######################\n");
-}
+void win_message(int turn);
+int menu();
 
 
 int two_player_loop(){
@@ -42,9 +32,8 @@ int two_player_loop(){
 
 
 	while(win == 0){
+		clear();
 		print_turn(turn);
-		printf("interger turn:%d\n", turn);
-		printf("#x: %d #o: %d\n", *xs, *os);
 		print_table(table);
 		inputfunc(table, turn, xs, os);
 		win = test_win(table, turn);
@@ -63,43 +52,19 @@ int two_player_loop(){
 }
 
 int one_player_loop(){
-	printf("###################\n");
-	printf("#      Under      #\n");
-	printf("#  construction!  #\n");
-	printf("###################\n");
+	move(0, 0);
+	printw("###################\n");
+	printw("#      Under      #\n");
+	printw("#  construction!  #\n");
+	printw("###################\n");
+	refresh();
+	getch();
 }
 
-int menu(){
-	int * shoice = (int *) malloc(sizeof(int));
-    
-	printf("###################\n");
-	printf("# 1 - two player  #\n");
-	printf("# 2 - one player  #\n");
-	printf("# 3 - quit        #\n");
-	printf("###################\n");
-	printf("Your shoice: ");
-	scanf("%d", shoice);
-
-	switch(*shoice){
-		case 1:
-			free(shoice);
-			two_player_loop();
-			break;
-		case 2:
-			free(shoice);
-			one_player_loop();
-			break;
-		case 3:
-			free(shoice);
-			return 0;
-			break;
-	}
-
-	menu();
-}
 
 int main(){
-	printf("Hello and wealcome to tic tac toe writhen in c.\n");
+	initscr();
 	menu();
+	endwin();
 	return 0;
 }
