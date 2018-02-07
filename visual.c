@@ -1,6 +1,7 @@
 //this is the visual table part of the game
 #include <stdio.h>
 #include <stdlib.h>
+#include <ncurses.h>
 
 //funktions in main.c
 int one_player_loop();
@@ -12,37 +13,45 @@ void win_message(int turn){
 	if (turn == 1){winner = 'x';}
 	if (turn == 2){winner = 'o';}
 
-	printf("#######################\n");
-	printf("#                     #\n");
-	printf("#       %c Won!        #\n", winner);
-	printf("#                     #\n");
-	printf("#######################\n");
+	printw("#######################\n");
+	printw("#                     #\n");
+	printw("#       %c Won!        #\n", winner);
+	printw("#                     #\n");
+	printw("#######################\n");
+	getch();
+	refresh();
 }
 
 int menu(){
 	int * shoice = (int *) malloc(sizeof(int));
+	int end = 0;
     
-	printf("###################\n");
-	printf("# 1 - two player  #\n");
-	printf("# 2 - one player  #\n");
-	printf("# 3 - quit        #\n");
-	printf("###################\n");
-	printf("Your shoice: ");
-	scanf("%d", shoice);
+	while(end != 1){
+		clear();
+		move(0, 0);
+		printw("###################\n");
+		printw("# 1 - two player  #\n");
+		printw("# 2 - one player  #\n");
+		printw("# 3 - quit        #\n");
+		printw("###################\n");
+		printw("Your shoice: ");
+		refresh();
+		scanw("%d", shoice);
 
-	switch(*shoice){
-		case 1:
-			free(shoice);
-			two_player_loop();
-			break;
-		case 2:
-			free(shoice);
-			one_player_loop();
-			break;
-		case 3:
-			free(shoice);
-			return 0;
-			break;
+		switch(*shoice){
+			case 1:
+				free(shoice);
+				two_player_loop();
+				break;
+			case 2:
+				free(shoice);
+				one_player_loop();
+				break;
+			case 3:
+				free(shoice);
+				return 0;
+				break;
+		}
 	}
 
 	menu();
@@ -108,31 +117,33 @@ void table_to_chartable(int *table, char * chartable[9][5]){
 }
 
 void print_only(char * chartable[9][5]){
-	printf("#########################\n");
-	printf("#       #       #       #\n");
-	printf("# %s # %s # %s #\n", chartable[0][0], chartable[1][0], chartable[2][0]);
-	printf("# %s # %s # %s #\n", chartable[0][1], chartable[1][1], chartable[2][1]);
-	printf("# %s # %s # %s #\n", chartable[0][2], chartable[1][2], chartable[2][2]);
-	printf("# %s # %s # %s #\n", chartable[0][3], chartable[1][3], chartable[2][3]);
-	printf("# %s # %s # %s #\n", chartable[0][4], chartable[1][4], chartable[2][4]);
-	printf("#       #       #       #\n");
-	printf("#########################\n");
-	printf("#       #       #       #\n");
-	printf("# %s # %s # %s #\n", chartable[3][0], chartable[4][0], chartable[5][0]);
-	printf("# %s # %s # %s #\n", chartable[3][1], chartable[4][1], chartable[5][1]);
-	printf("# %s # %s # %s #\n", chartable[3][2], chartable[4][2], chartable[5][2]);
-	printf("# %s # %s # %s #\n", chartable[3][3], chartable[4][3], chartable[5][3]);
-	printf("# %s # %s # %s #\n", chartable[3][4], chartable[4][4], chartable[5][4]);
-	printf("#       #       #       #\n");
-	printf("#########################\n");
-	printf("#       #       #       #\n");
-	printf("# %s # %s # %s #\n", chartable[6][0], chartable[7][0], chartable[8][0]);
-	printf("# %s # %s # %s #\n", chartable[6][1], chartable[7][1], chartable[8][1]);
-	printf("# %s # %s # %s #\n", chartable[6][2], chartable[7][2], chartable[8][2]);
-	printf("# %s # %s # %s #\n", chartable[6][3], chartable[7][3], chartable[8][3]);
-	printf("# %s # %s # %s #\n", chartable[6][4], chartable[7][4], chartable[8][4]);
-	printf("#       #       #       #\n");
-	printf("#########################\n");
+	move(0, 0);
+	printw("#########################\n");
+	printw("#       #       #       #\n");
+	printw("# %s # %s # %s #\n", chartable[0][0], chartable[1][0], chartable[2][0]);
+	printw("# %s # %s # %s #\n", chartable[0][1], chartable[1][1], chartable[2][1]);
+	printw("# %s # %s # %s #\n", chartable[0][2], chartable[1][2], chartable[2][2]);
+	printw("# %s # %s # %s #\n", chartable[0][3], chartable[1][3], chartable[2][3]);
+	printw("# %s # %s # %s #\n", chartable[0][4], chartable[1][4], chartable[2][4]);
+	printw("#       #       #       #\n");
+	printw("#########################\n");
+	printw("#       #       #       #\n");
+	printw("# %s # %s # %s #\n", chartable[3][0], chartable[4][0], chartable[5][0]);
+	printw("# %s # %s # %s #\n", chartable[3][1], chartable[4][1], chartable[5][1]);
+	printw("# %s # %s # %s #\n", chartable[3][2], chartable[4][2], chartable[5][2]);
+	printw("# %s # %s # %s #\n", chartable[3][3], chartable[4][3], chartable[5][3]);
+	printw("# %s # %s # %s #\n", chartable[3][4], chartable[4][4], chartable[5][4]);
+	printw("#       #       #       #\n");
+	printw("#########################\n");
+	printw("#       #       #       #\n");
+	printw("# %s # %s # %s #\n", chartable[6][0], chartable[7][0], chartable[8][0]);
+	printw("# %s # %s # %s #\n", chartable[6][1], chartable[7][1], chartable[8][1]);
+	printw("# %s # %s # %s #\n", chartable[6][2], chartable[7][2], chartable[8][2]);
+	printw("# %s # %s # %s #\n", chartable[6][3], chartable[7][3], chartable[8][3]);
+	printw("# %s # %s # %s #\n", chartable[6][4], chartable[7][4], chartable[8][4]);
+	printw("#       #       #       #\n");
+	printw("#########################\n");
+	refresh();
 	return;
 }
 
@@ -147,10 +158,10 @@ void print_table(int *table){
 void print_turn(int turn){
 	switch(turn){
 		case(1):
-			printf("X's turn\n");
+			printw("X's turn\n");
 			break;
 		case(2):
-			printf("O's turn\n");
+			printw("O's turn\n");
 			break;
 	}
 	return;

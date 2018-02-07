@@ -1,6 +1,7 @@
 //main file
 #include <stdlib.h>
 #include <stdio.h>
+#include <ncurses.h>
 
 //functions in logic.c
 void clean_table(int *table);
@@ -31,6 +32,7 @@ int two_player_loop(){
 
 
 	while(win == 0){
+		clear();
 		print_turn(turn);
 		print_table(table);
 		inputfunc(table, turn, xs, os);
@@ -50,14 +52,19 @@ int two_player_loop(){
 }
 
 int one_player_loop(){
-	printf("###################\n");
-	printf("#      Under      #\n");
-	printf("#  construction!  #\n");
-	printf("###################\n");
+	move(0, 0);
+	printw("###################\n");
+	printw("#      Under      #\n");
+	printw("#  construction!  #\n");
+	printw("###################\n");
+	refresh();
+	getch();
 }
 
 
 int main(){
+	initscr();
 	menu();
+	endwin();
 	return 0;
 }
