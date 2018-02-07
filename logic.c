@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <ncurses.h>
 
+//funktion declaree in visual.c
+void print_table(int *table, int hlight);
+
 void clean_table(int *table){
 	int n;
 
@@ -27,17 +30,71 @@ int test_win(int table[9], int turn){
 	return 0;
 }
 
+int xy_to_hlight(int x, int y){
+
+	if (y == 0 && x == 0){return 1;}
+	if (y == 0 && x == 1){return 2;}
+	if (y == 0 && x == 2){return 3;}
+
+	if (y == 1 && x == 0){return 4;}
+	if (y == 1 && x == 1){return 5;}
+	if (y == 1 && x == 2){return 6;}
+
+	if (y == 2 && x == 0){return 7;}
+	if (y == 2 && x == 1){return 8;}
+	if (y == 2 && x == 2){return 9;}
+
+	return 0;
+}
+
+int vinput(int *table){
+	int x = 1;
+	int y = 1;
+	int i;
+
+	while(1){
+		print_table(table, xy_to_hlight(x, y));
+		i = getch();
+		mvprintw(0, 0,"%d",i);
+
+		switch(i){
+			case KEY_UP:
+				if (y == 0){
+					break;
+				}
+				else y--;
+				break;
+			case KEY_DOWN:
+				if (y == 2){
+					break;
+				}
+				else y++;
+				break;
+			case KEY_LEFT:
+				if (x == 0){
+					break;
+				}
+				else x--;
+				break;
+			case KEY_RIGHT:
+				if (x == 2){
+					break;
+				}
+				else x++;
+				break;
+			case 10:
+				return xy_to_hlight(x, y);
+				break;
+		}
+	}
+}
+
 void place(int *table, int turn, int *xs, int *os){
 
 	int input;
 
 	while(1 == 1){
-		printw("Place marker on: ");
-		refresh();
-		scanw("%i", &input);
-
-		printw("input: %d\n", input);
-		refresh();
+		input = vinput(table);
 
 		if (table[input - 1] == 0){
 			table[input - 1] = turn;
@@ -53,12 +110,7 @@ void take(int *table, int turn, int *xs, int *os){
 	int input;
 
 	while(1 == 1){
-		printw("take marker from: ");
-		refresh();
-		scanw("%i", &input);
-
-		printw("input: %d\n", input);
-		refresh();
+		input = vinput(table);
 
 		if (table[input - 1] == turn){
 			table[input - 1] = 0;

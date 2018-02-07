@@ -9,7 +9,7 @@ int test_win(int *table, int turn);
 void inputfunc(int *table, int turn, int *xs, int *os);
 
 //functions in visual.c
-void print_table(int *table);
+void print_table(int *table, int hlight);
 void print_turn(int turn);
 void win_message(int turn);
 int menu();
@@ -34,11 +34,11 @@ int two_player_loop(){
 	while(win == 0){
 		clear();
 		print_turn(turn);
-		print_table(table);
+		print_table(table, 0);
 		inputfunc(table, turn, xs, os);
 		win = test_win(table, turn);
 
-		if (win == 1){print_table(table);}
+		if (win == 1){print_table(table, 0);}
 		if (win == 1){win_message(turn);}
 
 		if (turn == 1){turn = 2;}
@@ -65,6 +65,9 @@ int one_player_loop(){
 
 int main(){
 	initscr();
+	cbreak();
+	noecho();
+	keypad(stdscr, TRUE);
 	menu();
 	endwin();
 	return 0;

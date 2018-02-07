@@ -32,9 +32,6 @@ int vmenu(){
 
 
 	while(1){
-		cbreak();
-		noecho();
-		keypad(stdscr, TRUE);
 		clear();
 		move(0, 0);
 		printw("###################\n");
@@ -68,9 +65,6 @@ int vmenu(){
 				else hlight++;
 				break;
 			case 10:
-				keypad(stdscr, FALSE);
-				echo();
-				nocbreak();
 				return hlight + 1;
 				break;
 		}
@@ -159,42 +153,132 @@ void table_to_chartable(int *table, char * chartable[9][5]){
 	return;
 }
 
-void print_only(char * chartable[9][5]){
+void print_only(char * chartable[9][5], int hlight){
 	move(0, 0);
 	printw("#########################\n");
 	printw("#       #       #       #\n");
-	printw("# %s # %s # %s #\n", chartable[0][0], chartable[1][0], chartable[2][0]);
-	printw("# %s # %s # %s #\n", chartable[0][1], chartable[1][1], chartable[2][1]);
-	printw("# %s # %s # %s #\n", chartable[0][2], chartable[1][2], chartable[2][2]);
-	printw("# %s # %s # %s #\n", chartable[0][3], chartable[1][3], chartable[2][3]);
-	printw("# %s # %s # %s #\n", chartable[0][4], chartable[1][4], chartable[2][4]);
+
+	//pos 1
+	if (hlight == 1){
+		attron(A_STANDOUT);
+	}
+	printw("# %s #\n", chartable[0][0]);
+	printw("# %s #\n", chartable[0][1]);
+	printw("# %s #\n", chartable[0][2]);
+	printw("# %s #\n", chartable[0][3]);
+	printw("# %s #\n", chartable[0][4]);
+	attroff(A_STANDOUT);
+
+	//pos 2
+	if (hlight == 2){
+		attron(A_STANDOUT);
+	}
+	mvprintw(2, 9," %s #\n", chartable[1][0]);
+	mvprintw(3, 9," %s #\n", chartable[1][1]);
+	mvprintw(4, 9," %s #\n", chartable[1][2]);
+	mvprintw(5, 9," %s #\n", chartable[1][3]);
+	mvprintw(6, 9," %s #\n", chartable[1][4]);
+	attroff(A_STANDOUT);
+
+	//pos 3
+	if (hlight == 3){
+		attron(A_STANDOUT);
+	}
+	mvprintw(2, 17," %s #\n", chartable[2][0]);
+	mvprintw(3, 17," %s #\n", chartable[2][1]);
+	mvprintw(4, 17," %s #\n", chartable[2][2]);
+	mvprintw(5, 17," %s #\n", chartable[2][3]);
+	mvprintw(6, 17," %s #\n", chartable[2][4]);
+	attroff(A_STANDOUT);
+
 	printw("#       #       #       #\n");
 	printw("#########################\n");
 	printw("#       #       #       #\n");
-	printw("# %s # %s # %s #\n", chartable[3][0], chartable[4][0], chartable[5][0]);
-	printw("# %s # %s # %s #\n", chartable[3][1], chartable[4][1], chartable[5][1]);
-	printw("# %s # %s # %s #\n", chartable[3][2], chartable[4][2], chartable[5][2]);
-	printw("# %s # %s # %s #\n", chartable[3][3], chartable[4][3], chartable[5][3]);
-	printw("# %s # %s # %s #\n", chartable[3][4], chartable[4][4], chartable[5][4]);
+	
+	//pos 4
+	if (hlight == 4){
+		attron(A_STANDOUT);
+	}
+	mvprintw(10, 0,"# %s #\n", chartable[3][0]);
+	mvprintw(11, 0,"# %s #\n", chartable[3][1]);
+	mvprintw(12, 0,"# %s #\n", chartable[3][2]);
+	mvprintw(13, 0,"# %s #\n", chartable[3][3]);
+	mvprintw(14, 0,"# %s #\n", chartable[3][4]);
+	attroff(A_STANDOUT);
+
+	//pos 5
+	if (hlight == 5){
+		attron(A_STANDOUT);
+	}
+	mvprintw(10, 9," %s #\n", chartable[4][0]);
+	mvprintw(11, 9," %s #\n", chartable[4][1]);
+	mvprintw(12, 9," %s #\n", chartable[4][2]);
+	mvprintw(13, 9," %s #\n", chartable[4][3]);
+	mvprintw(14, 9," %s #\n", chartable[4][4]);
+	attroff(A_STANDOUT);
+
+	//pos 6
+	if (hlight == 6){
+		attron(A_STANDOUT);
+	}
+	mvprintw(10, 17," %s #\n", chartable[5][0]);
+	mvprintw(11, 17," %s #\n", chartable[5][1]);
+	mvprintw(12, 17," %s #\n", chartable[5][2]);
+	mvprintw(13, 17," %s #\n", chartable[5][3]);
+	mvprintw(14, 17," %s #\n", chartable[5][4]);
+	attroff(A_STANDOUT);
+
+
 	printw("#       #       #       #\n");
 	printw("#########################\n");
 	printw("#       #       #       #\n");
-	printw("# %s # %s # %s #\n", chartable[6][0], chartable[7][0], chartable[8][0]);
-	printw("# %s # %s # %s #\n", chartable[6][1], chartable[7][1], chartable[8][1]);
-	printw("# %s # %s # %s #\n", chartable[6][2], chartable[7][2], chartable[8][2]);
-	printw("# %s # %s # %s #\n", chartable[6][3], chartable[7][3], chartable[8][3]);
-	printw("# %s # %s # %s #\n", chartable[6][4], chartable[7][4], chartable[8][4]);
+
+	//pos 7
+	if (hlight == 7){
+		attron(A_STANDOUT);
+	}
+	mvprintw(18, 0,"# %s #\n", chartable[6][0]);
+	mvprintw(19, 0,"# %s #\n", chartable[6][1]);
+	mvprintw(20, 0,"# %s #\n", chartable[6][2]);
+	mvprintw(21, 0,"# %s #\n", chartable[6][3]);
+	mvprintw(22, 0,"# %s #\n", chartable[6][4]);
+	attroff(A_STANDOUT);
+
+	//pos 8
+	if (hlight == 8){
+		attron(A_STANDOUT);
+	}
+	mvprintw(18, 9," %s #\n", chartable[7][0]);
+	mvprintw(19, 9," %s #\n", chartable[7][1]);
+	mvprintw(20, 9," %s #\n", chartable[7][2]);
+	mvprintw(21, 9," %s #\n", chartable[7][3]);
+	mvprintw(22, 9," %s #\n", chartable[7][4]);
+	attroff(A_STANDOUT);
+
+	//pos 9
+	if (hlight == 9){
+		attron(A_STANDOUT);
+	}
+	mvprintw(18, 17," %s #\n", chartable[8][0]);
+	mvprintw(19, 17," %s #\n", chartable[8][1]);
+	mvprintw(20, 17," %s #\n", chartable[8][2]);
+	mvprintw(21, 17," %s #\n", chartable[8][3]);
+	mvprintw(22, 17," %s #\n", chartable[8][4]);
+	attroff(A_STANDOUT);
+
+
 	printw("#       #       #       #\n");
 	printw("#########################\n");
 	refresh();
 	return;
 }
 
-void print_table(int *table){
+void print_table(int *table, int hlight){
 	char * chartable[9][5];
 	clear_chartable(chartable);
 	table_to_chartable(table, chartable);
-	print_only(chartable);
+	print_only(chartable, hlight);
+
 	return;
 }
 
