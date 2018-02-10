@@ -47,9 +47,9 @@ int xy_to_hlight(int x, int y){
 	return 0;
 }
 
-int vinput(int *table){
-	int x = 1;
-	int y = 1;
+int vinput(int *table, int *cpoint){
+	int x = cpoint[0];
+	int y = cpoint[1];
 	int i;
 
 	while(1){
@@ -83,18 +83,20 @@ int vinput(int *table){
 				else x++;
 				break;
 			case 10:
+				cpoint[0] = x;
+				cpoint[1] = y;
 				return xy_to_hlight(x, y);
 				break;
 		}
 	}
 }
 
-void place(int *table, int turn, int *xs, int *os){
+void place(int *table, int turn, int *xs, int *os, int *cpoint){
 
 	int input;
 
 	while(1 == 1){
-		input = vinput(table);
+		input = vinput(table, cpoint);
 
 		if (table[input - 1] == 0){
 			table[input - 1] = turn;
@@ -106,11 +108,11 @@ void place(int *table, int turn, int *xs, int *os){
 
 }
 
-void take(int *table, int turn, int *xs, int *os){
+void take(int *table, int turn, int *xs, int *os, int *cpoint){
 	int input;
 
 	while(1 == 1){
-		input = vinput(table);
+		input = vinput(table, cpoint);
 
 		if (table[input - 1] == turn){
 			table[input - 1] = 0;
@@ -123,18 +125,18 @@ void take(int *table, int turn, int *xs, int *os){
 }
 
 
-void inputfunc(int *table, int turn, int *xs, int *os){
+void inputfunc(int *table, int turn, int *xs, int *os, int *cpoint){
 
 	printw("#x: %d #o: %d\n", *xs, *os);
 
 	switch(turn){
 		case(1):
-			if (*xs == 3){take(table, turn, xs, os);}
-			if (*xs < 3){place(table, turn, xs, os);}
+			if (*xs == 3){take(table, turn, xs, os, cpoint);}
+			if (*xs < 3){place(table, turn, xs, os, cpoint);}
 			break;
 		case(2):
-			if (*os == 3){take(table, turn, xs, os);}
-			if (*os < 3){place(table, turn, xs, os);}
+			if (*os == 3){take(table, turn, xs, os, cpoint);}
+			if (*os < 3){place(table, turn, xs, os, cpoint);}
 			break;
 	}
 }

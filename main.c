@@ -6,7 +6,7 @@
 //functions in logic.c
 void clean_table(int *table);
 int test_win(int *table, int turn);
-void inputfunc(int *table, int turn, int *xs, int *os);
+void inputfunc(int *table, int turn, int *xs, int *os, int *cpoint);
 
 //functions in visual.c
 void print_table(int *table, int hlight);
@@ -20,6 +20,7 @@ int two_player_loop(){
 	int *table = (int *) malloc(9 * sizeof(int));
 	int *xs = (int *) malloc(sizeof(int));
 	int *os = (int *) malloc(sizeof(int));
+	int *cpoint = (int *) malloc(2 * sizeof(int));
 
 	int win;
 	int turn;
@@ -29,13 +30,15 @@ int two_player_loop(){
 	win = 0;
 	*xs = 0;
 	*os = 0;
+	cpoint[0] = 1;
+	cpoint[1] = 1;
 
 
 	while(win == 0){
 		clear();
 		print_turn(turn);
 		print_table(table, 0);
-		inputfunc(table, turn, xs, os);
+		inputfunc(table, turn, xs, os, cpoint);
 		win = test_win(table, turn);
 
 		if (win == 1){print_table(table, 0);}
@@ -49,6 +52,7 @@ int two_player_loop(){
 	free(table);
 	free(xs);
 	free(os);
+	free(cpoint);
 }
 
 int one_player_loop(){
