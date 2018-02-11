@@ -106,16 +106,6 @@ void clear_chartable(char * chartable[9][5]){
 		}
 	}
 
-	chartable[0][2] = "  1  ";
-	chartable[1][2] = "  2  ";
-	chartable[2][2] = "  3  ";
-	chartable[3][2] = "  4  ";
-	chartable[4][2] = "  5  ";
-	chartable[5][2] = "  6  ";
-	chartable[6][2] = "  7  ";
-	chartable[7][2] = "  8  ";
-	chartable[8][2] = "  9  ";
-
 	return;
 }
 
