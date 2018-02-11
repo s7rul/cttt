@@ -10,7 +10,6 @@ void inputfunc(int *table, int turn, int *xs, int *os, int *cpoint);
 
 //functions in visual.c
 void print_table(int *table, int hlight);
-void print_turn(int turn);
 void win_message(int turn);
 int menu();
 
@@ -36,8 +35,6 @@ int two_player_loop(){
 
 	while(win == 0){
 		clear();
-		print_turn(turn);
-		print_table(table, 0);
 		inputfunc(table, turn, xs, os, cpoint);
 		win = test_win(table, turn);
 

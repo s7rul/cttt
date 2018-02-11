@@ -144,6 +144,18 @@ void table_to_chartable(int *table, char * chartable[9][5]){
 	return;
 }
 
+void print_turn(int turn){
+	switch(turn){
+		case(1):
+			mvprintw(25, 0, "X's turn\n");
+			break;
+		case(2):
+			mvprintw(25, 0, "O's turn\n");
+			break;
+	}
+	return;
+}
+
 void print_only(char * chartable[9][5], int hlight){
 	move(0, 0);
 	printw("#########################\n");
@@ -280,17 +292,5 @@ void print_table(int *table, int hlight){
 	table_to_chartable(table, chartable);
 	print_only(chartable, hlight);
 
-	return;
-}
-
-void print_turn(int turn){
-	switch(turn){
-		case(1):
-			printw("X's turn\n");
-			break;
-		case(2):
-			printw("O's turn\n");
-			break;
-	}
 	return;
 }

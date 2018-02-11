@@ -5,6 +5,7 @@
 
 //funktion declaree in visual.c
 void print_table(int *table, int hlight);
+void print_turn(int turn);
 
 void clean_table(int *table){
 	int n;
@@ -54,8 +55,8 @@ int vinput(int *table, int *cpoint){
 
 	while(1){
 		print_table(table, xy_to_hlight(x, y));
+		refresh();
 		i = getch();
-		mvprintw(0, 0,"%d",i);
 
 		switch(i){
 			case KEY_UP:
@@ -127,7 +128,8 @@ void take(int *table, int turn, int *xs, int *os, int *cpoint){
 
 void inputfunc(int *table, int turn, int *xs, int *os, int *cpoint){
 
-	printw("#x: %d #o: %d\n", *xs, *os);
+	print_turn(turn);
+	refresh();
 
 	switch(turn){
 		case(1):
