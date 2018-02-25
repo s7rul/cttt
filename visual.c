@@ -24,31 +24,39 @@ void win_message(int turn){
 }
 
 int vmenu(){
+	clear();
+	WINDOW *menu_win;
+	int height, width, starty, startx, lines, cols;
 	int input;
 	int hlight = 0;
 	char *smenu[3];
-	smenu[0] = "# 1 - two player  #\n";
-	smenu[1] = "# 2 - one player  #\n";
-	smenu[2] = "# 3 - quit        #\n";
+	smenu[0] = "# 1 - two player  #";
+	smenu[1] = "# 2 - one player  #";
+	smenu[2] = "# 3 - quit        #";
 
+	height = 5;
+	width = 19;
+	getmaxyx(stdscr, lines, cols);
+	starty = (lines - height) / 2;
+	startx = (cols - width) / 2;
+
+	menu_win = newwin(height, width, starty, startx);
 
 	while(1){
-		clear();
-		move(0, 0);
-		printw("###################\n");
+		wmove(menu_win, 0, 0);
+		wprintw(menu_win, "###################");
 
 		for (int l = 0; l < 3; l++){
 			if (hlight == l){
-				attron(A_STANDOUT);
-				printw("%s", smenu[l]);
-				attroff(A_STANDOUT);
+				wattron(menu_win, A_STANDOUT);
+				wprintw(menu_win, "%s", smenu[l]);
+				wattroff(menu_win, A_STANDOUT);
 			}
-			else printw("%s", smenu[l]);
+			else wprintw(menu_win,"%s", smenu[l]);
 		}
 
-		move(4, 0);
-		printw("###################\n");
-		refresh();
+		wprintw(menu_win, "###################");
+		wrefresh(menu_win);
 
 		input = getch();
 
@@ -71,6 +79,8 @@ int vmenu(){
 		}
 
 	}
+
+	delwin(menu_win);
 }
 
 int menu(){
