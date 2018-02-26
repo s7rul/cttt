@@ -41,6 +41,7 @@ int vmenu(){
 	startx = (cols - width) / 2;
 
 	menu_win = newwin(height, width, starty, startx);
+	keypad(menu_win, TRUE);
 
 	while(1){
 		wmove(menu_win, 0, 0);
@@ -58,7 +59,7 @@ int vmenu(){
 		wprintw(menu_win, "###################");
 		wrefresh(menu_win);
 
-		input = getch();
+		input = wgetch(menu_win);
 
 		switch(input){
 			case KEY_UP:
