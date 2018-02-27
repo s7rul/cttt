@@ -69,6 +69,7 @@ int main(){
 	cbreak();
 	noecho();
 	keypad(stdscr, TRUE);
+	curs_set(0);
 	menu();
 	endwin();
 	return 0;

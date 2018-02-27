@@ -19,12 +19,13 @@ void win_message(int turn){
 	printw("#       %c Won!        #\n", winner);
 	printw("#                     #\n");
 	printw("#######################\n");
-	getch();
 	refresh();
+	getch();
 }
 
 int vmenu(){
 	clear();
+	refresh();
 	WINDOW *menu_win;
 	int height, width, starty, startx, lines, cols;
 	int input;
