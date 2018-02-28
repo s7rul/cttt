@@ -8,19 +8,31 @@ int one_player_loop();
 int two_player_loop();
 
 void win_message(int turn){
+	WINDOW *winm;
+	int height, width, starty, startx, lines, cols;
 	char winner;
+
+	height = 5;
+	width = 19;
+	getmaxyx(stdscr, lines, cols);
+	starty = (lines - height) / 2;
+	startx = (cols - width) / 2;
+
+	winm = newwin(height, width, starty, startx);
 
 	if (turn == 1){winner = 'x';}
 	if (turn == 2){winner = 'o';}
 
-	move(25, 0);
-	printw("#######################\n");
-	printw("#                     #\n");
-	printw("#       %c Won!        #\n", winner);
-	printw("#                     #\n");
-	printw("#######################\n");
-	refresh();
-	getch();
+	wmove(winm, 0, 0);
+	wprintw(winm, "###################");
+	wprintw(winm, "#                 #");
+	wprintw(winm, "#     %c Won!      #", winner);
+	wprintw(winm, "#                 #");
+	wprintw(winm, "###################");
+	wrefresh(winm);
+	wgetch(winm);
+
+	delwin(winm);
 }
 
 int vmenu(){
@@ -169,131 +181,150 @@ void print_turn(int turn){
 }
 
 void print_only(char * chartable[9][5], int hlight){
+
+	clear();
+	refresh();
+	WINDOW *plane;
+	int height, width, starty, startx, lines, cols;
+	int input;
+
+	height = 25;
+	width = 25;
+	getmaxyx(stdscr, lines, cols);
+	starty = (lines - height) / 2;
+	startx = (cols - width) / 2;
+
+	plane = newwin(height, width, starty, startx);
+	
 	move(0, 0);
-	printw("#########################\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#########################\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#########################\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#       #       #       #\n");
-	printw("#########################\n");
+	wprintw(plane, "#########################");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#########################");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#########################");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#       #       #       #");
+	wprintw(plane, "#########################");
 
 	//pos 1
 	if (hlight == 1){
-		attron(A_STANDOUT);
+		wattron(plane, A_STANDOUT);
 	}
-	mvprintw(2, 1," %s ", chartable[0][0]);
-	mvprintw(3, 1," %s ", chartable[0][1]);
-	mvprintw(4, 1," %s ", chartable[0][2]);
-	mvprintw(5, 1," %s ", chartable[0][3]);
-	mvprintw(6, 1," %s ", chartable[0][4]);
-	attroff(A_STANDOUT);
+	mvwprintw(plane, 2, 1, " %s ", chartable[0][0]);
+	mvwprintw(plane, 3, 1, " %s ", chartable[0][1]);
+	mvwprintw(plane, 4, 1, " %s ", chartable[0][2]);
+	mvwprintw(plane, 5, 1, " %s ", chartable[0][3]);
+	mvwprintw(plane, 6, 1, " %s ", chartable[0][4]);
+	wattroff(plane, A_STANDOUT);
 
 	//pos 2
 	if (hlight == 2){
-		attron(A_STANDOUT);
+		wattron(plane, A_STANDOUT);
 	}
-	mvprintw(2, 9," %s ", chartable[1][0]);
-	mvprintw(3, 9," %s ", chartable[1][1]);
-	mvprintw(4, 9," %s ", chartable[1][2]);
-	mvprintw(5, 9," %s ", chartable[1][3]);
-	mvprintw(6, 9," %s ", chartable[1][4]);
-	attroff(A_STANDOUT);
+	mvwprintw(plane, 2, 9, " %s ", chartable[1][0]);
+	mvwprintw(plane, 3, 9, " %s ", chartable[1][1]);
+	mvwprintw(plane, 4, 9, " %s ", chartable[1][2]);
+	mvwprintw(plane, 5, 9, " %s ", chartable[1][3]);
+	mvwprintw(plane, 6, 9, " %s ", chartable[1][4]);
+	wattroff(plane, A_STANDOUT);
 
 	//pos 3
 	if (hlight == 3){
-		attron(A_STANDOUT);
+		wattron(plane, A_STANDOUT);
 	}
-	mvprintw(2, 17," %s ", chartable[2][0]);
-	mvprintw(3, 17," %s ", chartable[2][1]);
-	mvprintw(4, 17," %s ", chartable[2][2]);
-	mvprintw(5, 17," %s ", chartable[2][3]);
-	mvprintw(6, 17," %s ", chartable[2][4]);
-	attroff(A_STANDOUT);
+	mvwprintw(plane, 2, 17, " %s ", chartable[2][0]);
+	mvwprintw(plane, 3, 17, " %s ", chartable[2][1]);
+	mvwprintw(plane, 4, 17, " %s ", chartable[2][2]);
+	mvwprintw(plane, 5, 17, " %s ", chartable[2][3]);
+	mvwprintw(plane, 6, 17, " %s ", chartable[2][4]);
+	wattroff(plane, A_STANDOUT);
 	
 	//pos 4
 	if (hlight == 4){
-		attron(A_STANDOUT);
+		wattron(plane, A_STANDOUT);
 	}
-	mvprintw(10, 1," %s ", chartable[3][0]);
-	mvprintw(11, 1," %s ", chartable[3][1]);
-	mvprintw(12, 1," %s ", chartable[3][2]);
-	mvprintw(13, 1," %s ", chartable[3][3]);
-	mvprintw(14, 1," %s ", chartable[3][4]);
-	attroff(A_STANDOUT);
+	mvwprintw(plane, 10, 1, " %s ", chartable[3][0]);
+	mvwprintw(plane, 11, 1, " %s ", chartable[3][1]);
+	mvwprintw(plane, 12, 1, " %s ", chartable[3][2]);
+	mvwprintw(plane, 13, 1, " %s ", chartable[3][3]);
+	mvwprintw(plane, 14, 1, " %s ", chartable[3][4]);
+	wattroff(plane, A_STANDOUT);
 
 	//pos 5
 	if (hlight == 5){
-		attron(A_STANDOUT);
+		wattron(plane, A_STANDOUT);
 	}
-	mvprintw(10, 9," %s ", chartable[4][0]);
-	mvprintw(11, 9," %s ", chartable[4][1]);
-	mvprintw(12, 9," %s ", chartable[4][2]);
-	mvprintw(13, 9," %s ", chartable[4][3]);
-	mvprintw(14, 9," %s ", chartable[4][4]);
-	attroff(A_STANDOUT);
+	mvwprintw(plane, 10, 9, " %s ", chartable[4][0]);
+	mvwprintw(plane, 11, 9, " %s ", chartable[4][1]);
+	mvwprintw(plane, 12, 9, " %s ", chartable[4][2]);
+	mvwprintw(plane, 13, 9, " %s ", chartable[4][3]);
+	mvwprintw(plane, 14, 9, " %s ", chartable[4][4]);
+	wattroff(plane, A_STANDOUT);
 
 	//pos 6
 	if (hlight == 6){
-		attron(A_STANDOUT);
+		wattron(plane, A_STANDOUT);
 	}
-	mvprintw(10, 17," %s ", chartable[5][0]);
-	mvprintw(11, 17," %s ", chartable[5][1]);
-	mvprintw(12, 17," %s ", chartable[5][2]);
-	mvprintw(13, 17," %s ", chartable[5][3]);
-	mvprintw(14, 17," %s ", chartable[5][4]);
-	attroff(A_STANDOUT);
+	mvwprintw(plane, 10, 17, " %s ", chartable[5][0]);
+	mvwprintw(plane, 11, 17, " %s ", chartable[5][1]);
+	mvwprintw(plane, 12, 17, " %s ", chartable[5][2]);
+	mvwprintw(plane, 13, 17, " %s ", chartable[5][3]);
+	mvwprintw(plane, 14, 17, " %s ", chartable[5][4]);
+	wattroff(plane, A_STANDOUT);
 
 	//pos 7
 	if (hlight == 7){
-		attron(A_STANDOUT);
+		wattron(plane, A_STANDOUT);
 	}
-	mvprintw(18, 1," %s ", chartable[6][0]);
-	mvprintw(19, 1," %s ", chartable[6][1]);
-	mvprintw(20, 1," %s ", chartable[6][2]);
-	mvprintw(21, 1," %s ", chartable[6][3]);
-	mvprintw(22, 1," %s ", chartable[6][4]);
-	attroff(A_STANDOUT);
+	mvwprintw(plane, 18, 1, " %s ", chartable[6][0]);
+	mvwprintw(plane, 19, 1, " %s ", chartable[6][1]);
+	mvwprintw(plane, 20, 1, " %s ", chartable[6][2]);
+	mvwprintw(plane, 21, 1, " %s ", chartable[6][3]);
+	mvwprintw(plane, 22, 1, " %s ", chartable[6][4]);
+	wattroff(plane, A_STANDOUT);
 
 	//pos 8
 	if (hlight == 8){
-		attron(A_STANDOUT);
+		wattron(plane, A_STANDOUT);
 	}
-	mvprintw(18, 9," %s ", chartable[7][0]);
-	mvprintw(19, 9," %s ", chartable[7][1]);
-	mvprintw(20, 9," %s ", chartable[7][2]);
-	mvprintw(21, 9," %s ", chartable[7][3]);
-	mvprintw(22, 9," %s ", chartable[7][4]);
-	attroff(A_STANDOUT);
+	mvwprintw(plane, 18, 9, " %s ", chartable[7][0]);
+	mvwprintw(plane, 19, 9, " %s ", chartable[7][1]);
+	mvwprintw(plane, 20, 9, " %s ", chartable[7][2]);
+	mvwprintw(plane, 21, 9, " %s ", chartable[7][3]);
+	mvwprintw(plane, 22, 9, " %s ", chartable[7][4]);
+	wattroff(plane, A_STANDOUT);
 
 	//pos 9
 	if (hlight == 9){
-		attron(A_STANDOUT);
+		wattron(plane, A_STANDOUT);
 	}
-	mvprintw(18, 17," %s ", chartable[8][0]);
-	mvprintw(19, 17," %s ", chartable[8][1]);
-	mvprintw(20, 17," %s ", chartable[8][2]);
-	mvprintw(21, 17," %s ", chartable[8][3]);
-	mvprintw(22, 17," %s ", chartable[8][4]);
-	attroff(A_STANDOUT);
+	mvwprintw(plane, 18, 17, " %s ", chartable[8][0]);
+	mvwprintw(plane, 19, 17, " %s ", chartable[8][1]);
+	mvwprintw(plane, 20, 17, " %s ", chartable[8][2]);
+	mvwprintw(plane, 21, 17, " %s ", chartable[8][3]);
+	mvwprintw(plane, 22, 17, " %s ", chartable[8][4]);
+	wattroff(plane, A_STANDOUT);
+
+	wrefresh(plane);
+
+	delwin(plane);
 
 	return;
 }
