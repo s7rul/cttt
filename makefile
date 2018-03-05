@@ -1,2 +1,2 @@
-cttt: main.c logic.c visual.c
-	gcc main.c logic.c visual.c -fhosted -lncurses -o cttt 
+cttt: main.c logic.c visual.c ai.c
+	gcc main.c logic.c visual.c ai.c -fhosted -lncurses -o cttt 

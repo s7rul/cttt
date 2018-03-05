@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <ncurses.h>
+#include <time.h>
 
 //functions in logic.c
 void clean_table(int *table);
@@ -13,9 +14,11 @@ void print_table(int *table, int hlight);
 void win_message(int turn);
 int menu();
 
+//functions in ai.c
+void ai_move(int *table, int *os);
+
 
 int two_player_loop(){
-
 	int *table = (int *) malloc(9 * sizeof(int));
 	int *xs = (int *) malloc(sizeof(int));
 	int *os = (int *) malloc(sizeof(int));
@@ -55,28 +58,49 @@ int two_player_loop(){
 }
 
 int one_player_loop(){
+	time_t t;
+	srand((unsigned) t);
 	clear();
 	refresh();
-	WINDOW *one_player;
 	int startx, starty, height, width, lines, cols;
 
-	height = 4;
-	width = 19;
-	getmaxyx(stdscr, lines, cols);
-	starty = (lines - height) / 2;
-	startx = (cols - width) / 2;
+	int *table = (int *) malloc(9 * sizeof(int));
+	int *xs = (int *) malloc(sizeof(int));
+	int *os = (int *) malloc(sizeof(int));
+	int *cpoint = (int *) malloc(2 * sizeof(int));
 
-	one_player = newwin(height, width, starty, startx);
+	int win;
+	int turn;
 
-	wmove(one_player, 0, 0);
-	wprintw(one_player, "###################");
-	wprintw(one_player, "#      Under      #");
-	wprintw(one_player, "#  construction!  #");
-	wprintw(one_player, "###################");
-	wrefresh(one_player);
-	wgetch(one_player);
+	clean_table(table);
+	turn = 1;
+	win = 0;
+	*xs = 0;
+	*os = 0;
+	cpoint[0] = 1;
+	cpoint[1] = 1;
 
-	delwin(one_player);
+
+	while(win == 0){
+		clear();
+		if (turn == 1){inputfunc(table, turn, xs, os, cpoint);}
+		else ai_move(table, os);
+		win = test_win(table, turn);
+
+		if (win == 1){
+			print_table(table, 0);
+			win_message(turn);
+		}
+
+		if (turn == 1){turn = 2;}
+		else if (turn == 2){turn = 1;}
+	}
+
+
+	free(table);
+	free(xs);
+	free(os);
+	free(cpoint);
 }
 
 
