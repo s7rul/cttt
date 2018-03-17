@@ -13,7 +13,7 @@ int rnd(int max){
 int check_for_win(int *table, int move){
 	//mode 1 = check i human can win
 	//mode 2 = check if ai can win
-	//
+
 	//#########
 	//# 0 1 2 #
 	//# 3 4 5 #
@@ -57,34 +57,48 @@ int check_for_win(int *table, int move){
 	return ret;
 } 
 
-void ai_move(int *table, int *os){
-	int empty, move, full;
-	empty = 0;
-	full = 0;
+void ai_below_3_move(int *table){
+	int empty = 0;
+	int v_rnd = 1;
+	int move;
 
-	if (*os < 3){
-		while(!empty){
+	while(!empty){
+		if (check_for_win(table, 1) != 9){
 			move = check_for_win(table, 1);
-			if (move == 9){
-				move = rnd(9);
-			}
-			if (table[move] == 0){empty = 1;}
+			v_rnd = 0;
 		}
-		table[move] = 2;
+		if (check_for_win(table, 2) != 9){
+			move = check_for_win(table, 2);
+			v_rnd = 0;
+		}
+		if (v_rnd){
+			move = rnd(9);
+		}
+		if (table[move] == 0){empty = 1;}
+	}
+	table[move] = 2;
+}
+
+void ai_over_3_move(int *table){
+	int full = 0;
+	int move;
+
+	while(!full){
+		move = rnd(9);
+		if (table[move] == 2){full = 1;}
+	}
+	table[move] = 0;
+
+	ai_below_3_move(table);
+}
+
+void ai_move(int *table, int *os){
+	if (*os < 3){
+		ai_below_3_move(table);
 		*os += 1;
 	}
 	else {
-		while(!full){
-			move = rnd(9);
-			if (table[move] == 2){full = 1;}
-		}
-		table[move] = 0;
-
-		while(!empty){
-			move = rnd(9);
-			if (table[move] == 0){empty = 1;}
-		}
-		table[move] = 2;
+		ai_over_3_move(table);
 	}
 
 	return; 
