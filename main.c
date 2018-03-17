@@ -17,7 +17,6 @@ int menu();
 //functions in ai.c
 void ai_move(int *table, int *os);
 
-
 int two_player_loop(){
 	int *table = (int *) malloc(9 * sizeof(int));
 	int *xs = (int *) malloc(sizeof(int));
