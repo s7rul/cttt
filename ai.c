@@ -57,6 +57,53 @@ int check_for_win(int *table, int move){
 	return ret;
 } 
 
+int *dont_remove(int *table){
+	int *ret = malloc(2 * sizeof(int));
+
+	//#########
+	//# 0 1 2 #
+	//# 3 4 5 #
+	//# 6 7 8 #
+	//#########
+
+	ret[0] = 9;
+	ret[1] = 9;
+
+	if (check_for_win(table, 2) == 2 && table[2] == 0){ret[0] = 0; ret[1] = 1;}
+	if (check_for_win(table, 2) == 1 && table[1] == 0){ret[0] = 0; ret[1] = 2;}
+	if (check_for_win(table, 2) == 0 && table[0] == 0){ret[0] = 1; ret[1] = 2;}
+
+	if (check_for_win(table, 2) == 5 && table[5] == 0){ret[0] = 3; ret[1] = 4;}
+	if (check_for_win(table, 2) == 4 && table[4] == 0){ret[0] = 3; ret[1] = 5;}
+	if (check_for_win(table, 2) == 3 && table[3] == 0){ret[0] = 4; ret[1] = 5;}
+
+	if (check_for_win(table, 2) == 8 && table[8] == 0){ret[0] = 6; ret[1] = 7;}
+	if (check_for_win(table, 2) == 7 && table[7] == 0){ret[0] = 6; ret[1] = 8;}
+	if (check_for_win(table, 2) == 6 && table[6] == 0){ret[0] = 7; ret[1] = 8;}
+
+	if (check_for_win(table, 2) == 6 && table[6] == 0){ret[0] = 0; ret[1] = 3;}
+	if (check_for_win(table, 2) == 3 && table[3] == 0){ret[0] = 0; ret[1] = 6;}
+	if (check_for_win(table, 2) == 0 && table[0] == 0){ret[0] = 3; ret[1] = 6;}
+
+	if (check_for_win(table, 2) == 7 && table[7] == 0){ret[0] = 1; ret[1] = 4;}
+	if (check_for_win(table, 2) == 4 && table[4] == 0){ret[0] = 1; ret[1] = 7;}
+	if (check_for_win(table, 2) == 1 && table[1] == 0){ret[0] = 4; ret[1] = 7;}
+
+	if (check_for_win(table, 2) == 8 && table[8] == 0){ret[0] = 2; ret[1] = 5;}
+	if (check_for_win(table, 2) == 5 && table[5] == 0){ret[0] = 2; ret[1] = 8;}
+	if (check_for_win(table, 2) == 2 && table[2] == 0){ret[0] = 5; ret[1] = 8;}
+
+	if (check_for_win(table, 2) == 8 && table[8] == 0){ret[0] = 0; ret[1] = 4;}
+	if (check_for_win(table, 2) == 4 && table[4] == 0){ret[0] = 0; ret[1] = 8;}
+	if (check_for_win(table, 2) == 0 && table[0] == 0){ret[0] = 4; ret[1] = 8;}
+
+	if (check_for_win(table, 2) == 6 && table[6] == 0){ret[0] = 2; ret[1] = 4;}
+	if (check_for_win(table, 2) == 4 && table[4] == 0){ret[0] = 2; ret[1] = 6;}
+	if (check_for_win(table, 2) == 2 && table[2] == 0){ret[0] = 4; ret[1] = 6;}
+
+	return ret;
+}
+
 void ai_below_3_move(int *table){
 	int empty = 0;
 	int v_rnd = 1;
@@ -82,14 +129,21 @@ void ai_below_3_move(int *table){
 void ai_over_3_move(int *table){
 	int full = 0;
 	int move;
+	int *dremove;
+
+	dremove = dont_remove(table);
 
 	while(!full){
 		move = rnd(9);
+		if (dremove[0] == move){continue;}
+		if (dremove[1] == move){continue;}
 		if (table[move] == 2){full = 1;}
 	}
 	table[move] = 0;
 
 	ai_below_3_move(table);
+
+	free(dremove);
 }
 
 void ai_move(int *table, int *os){
